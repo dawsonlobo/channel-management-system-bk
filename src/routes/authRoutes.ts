@@ -130,24 +130,81 @@ router.post('/login', (req, res) => {
 router.post('/refresh-token', (req, res) => {
   res.send('Refresh token route');
 });
-
 /**
  * @swagger
  * /auth/logout:
  *   post:
  *     tags: ['Auth']
  *     summary: Logout user
- *     description: Logs out the user by invalidating their JWT tokens
+ *     description: Logs out the user by invalidating their JWT tokens.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - refreshToken
+ *             properties:
+ *               refreshToken:
+ *                 type: string
+ *                 description: Refresh token to invalidate and log out the user
+ *                 example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkVCJ9..."
  *     responses:
  *       200:
  *         description: User logged out successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   description: Response status
+ *                   example: "200,"
+ *                 message:
+ *                   type: string
+ *                   description: Response message
+ *                   example: "Success,"
+ *                 data:
+ *                   type: string
+ *                   description: Logout result
+ *                   example: "Logout Successful"
+ *       400:
+ *         description: Invalid or missing refresh token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   description: Response status
+ *                   example: "400,"
+ *                 message:
+ *                   type: string
+ *                   description: Error message
+ *                   example: "Refresh token is required"
  *       500:
  *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   description: Response status
+ *                   example: "500,"
+ *                 message:
+ *                   type: string
+ *                   description: Error message
+ *                   example: "Internal server error"
  */
 router.post('/logout', (req, res) => {
-  res.send('Logout route');
-});
-
+    res.send('Logout route');
+  });
+  
 /**
  * @swagger
  * /auth/update-profile:
