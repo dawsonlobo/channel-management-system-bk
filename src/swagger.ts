@@ -1,3 +1,4 @@
+import express from 'express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import { Express } from 'express';
@@ -12,11 +13,24 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:3000', // Replace with your server URL
+        url: 'http://localhost:3000', // Update with the actual server URL
+      },
+    ],
+    components: {
+      securitySchemes: {
+        userAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },    security: [
+      {
+        userAuth: [],
       },
     ],
   },
-  apis: ['./routes/*.ts'], // Adjust the path to your route files
+  apis: ['./src/routes/*.ts'], // Path to your route files
 };
 
 const swaggerSpec = swaggerJsdoc(options);

@@ -2,7 +2,8 @@ import { setupSwagger } from "./swagger"; // adjust the path if necessary
 // assuming you have route definitions in routes/index.ts
 import express, { Request, Response } from "express";
 import { connectDB } from "./database"; // Import database connection
-
+import userRoutes from './routes/userRoutes'
+import authRoutes from './routes/authRoutes'
 const app = express();
 const port = 3000;
 
@@ -15,6 +16,8 @@ app.use(express.json());
 // Setup Swagger
 setupSwagger(app);
 
+app.use('/user',userRoutes);
+app.use('/auth',authRoutes);
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
   app.use(express.json()); // Middleware for parsing JSON
