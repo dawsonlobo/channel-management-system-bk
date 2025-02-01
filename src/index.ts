@@ -1,5 +1,4 @@
 import { setupSwagger } from "./swagger"; // adjust the path if necessary
-// assuming you have route definitions in routes/index.ts
 import express, { Request, Response } from "express";
 import { connectDB } from "./database"; // Import database connection
 
@@ -31,10 +30,6 @@ app.listen(port, () => {
       } catch (error) {
         res.status(500).json({ error: "Failed to fetch users" });
       }
-    });
-
-    app.listen(port, () => {
-      console.log(`Server is running at http://localhost:${port}`);
     });
   });
 });
