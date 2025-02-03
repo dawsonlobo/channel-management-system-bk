@@ -1,8 +1,8 @@
-import { setupSwagger } from "./swagger"; // adjust the path if necessary
 import express, { Request, Response } from "express";
+import { setupSwagger } from "./swagger"; // adjust the path if necessary
 import { connectDB } from "./database"; // Import database connection
-import userRoutes from './routes/userRoutes'
-import authRoutes from './routes/authRoutes'
+import deviceRoutes from './routes/devices' // Import the device routes
+
 const app = express();
 const port = 3000;
 
@@ -10,17 +10,15 @@ const port = 3000;
 app.use(express.json());
 
 // Setup Routes
-//app.use('/api', routes); // Mount your route handlers
-
 // Setup Swagger
 setupSwagger(app);
 
-app.use('/user',userRoutes);
-app.use('/auth',authRoutes);
+
+app.use('/devices', deviceRoutes); // Use device routes for the devices API
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
-  app.use(express.json()); // Middleware for parsing JSON
-
+  
   // Connect to MongoDB
   connectDB().then((db) => {
     const usersCollection = db.collection("users");
